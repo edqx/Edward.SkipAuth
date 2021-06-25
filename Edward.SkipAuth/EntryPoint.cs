@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.IL2CPP;
@@ -16,22 +15,13 @@ namespace Edward.SkipAuth
         public const string Id = "dev.weakeyes.skipauth";
 
         public Harmony Harmony { get; } = new Harmony(Id);
-
-        public ConfigEntry<string> Name { get; private set; }
         
-        public static List<string> OfficialServerNames = new List<string>()
+        public static readonly List<string> OfficialServerNames = new List<string>()
         {
             "North America", 
             "Europe",
             "Asia" 
         };
-
-        public override void Load()
-        {
-            Name = Config.Bind("Fake", "Name", ":>");
-
-            Harmony.PatchAll();
-        }
 
         [HarmonyPatch(typeof(AuthManager._CoConnect_d__4), nameof(AuthManager._CoConnect_d__4.MoveNext))]
         public static class DoNothingInConnect
