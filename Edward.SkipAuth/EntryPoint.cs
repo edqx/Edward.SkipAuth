@@ -23,6 +23,11 @@ namespace Edward.SkipAuth
             "Asia" 
         };
 
+        public override void Load()
+        {
+            Harmony.PatchAll();
+        }
+
         [HarmonyPatch(typeof(AuthManager._CoConnect_d__4), nameof(AuthManager._CoConnect_d__4.MoveNext))]
         public static class DoNothingInConnect
         {
